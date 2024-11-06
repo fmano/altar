@@ -24,12 +24,23 @@ describe('utils', () => {
   });
 
   describe('getGrid', () => {
+    const rows = 10;
+    const columns = 10;
+
     it('should return a grid with correct dimensions', () => {
-      const rows = 10;
-      const columns = 10;
-      const grid = getGrid(rows, columns);
-      expect(grid.length).toBe(rows);
-      expect(grid[0].length).toBe(columns);
+      const testGrid = getGrid(rows, columns);
+      expect(testGrid.length).toBe(rows);
+      expect(testGrid[0].length).toBe(columns);
+    });
+
+    it('should have an alphabet character on every position', () => {
+      const testGrid = getGrid(rows, columns);
+
+      for (let i = 0; i < testGrid.length; i++) {
+        for (let j = 0; j < testGrid[0].length; j++) {
+          expect(testGrid[i][j]).toMatch(/^[a-z]/); // match with a single char inside a-z
+        }
+      }
     });
   });
 });

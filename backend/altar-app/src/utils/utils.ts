@@ -10,7 +10,7 @@ export function getRandomAlphabetCharacter(): string {
 
 export function getGrid(rows: number, columns: number): string[][] {
   const grid: string[][] = Array.from({ length: rows }, (_, row) =>
-    Array.from({ length: columns }, (_, col) => `${row}${col}`),
+    Array.from({ length: columns }, (_, col) => getRandomAlphabetCharacter()),
   );
 
   return grid;
