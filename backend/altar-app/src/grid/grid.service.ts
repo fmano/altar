@@ -3,14 +3,23 @@ import { GridDto } from './models/grid.model';
 
 @Injectable()
 export class GridService {
+  public static readonly GRID_ROWS = 10;
+  public static readonly GRID_COLUMNS = 10;
+
   getGrid(): GridDto {
-    const testGrid = {
-      grid: [
-        ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j'],
-        ['k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't'],
-        ['u', 'v', 'w', 'x', 'y', 'z', 'a1', 'b1', 'c1', 'd1'],
-      ],
+    const testGrid: string[][] = Array.from(
+      { length: GridService.GRID_ROWS },
+      (_, row) =>
+        Array.from(
+          { length: GridService.GRID_COLUMNS },
+          (_, col) => `${row}${col}`,
+        ),
+    );
+
+    const grid: GridDto = {
+      grid: testGrid,
     };
-    return testGrid;
+
+    return grid;
   }
 }
