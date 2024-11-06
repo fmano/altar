@@ -8,10 +8,14 @@ export class GridService {
   public static readonly GRID_COLUMNS = 10;
 
   getGrid(): GridDto {
-    const grid: GridDto = {
-      grid: getGrid(GridService.GRID_ROWS, GridService.GRID_COLUMNS),
+    const grid = getGrid(GridService.GRID_ROWS, GridService.GRID_COLUMNS);
+    const code = -1;
+
+    const gridDto: GridDto = {
+      grid,
+      code,
     };
 
-    return grid;
+    return gridDto;
   }
 }
