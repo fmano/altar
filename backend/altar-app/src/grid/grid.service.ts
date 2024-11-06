@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { GridDto } from './models/grid.model';
-import { getGrid } from '../utils/utils';
+import { getCode, getGrid } from '../utils/utils';
 
 @Injectable()
 export class GridService {
@@ -9,7 +9,7 @@ export class GridService {
 
   getGrid(): GridDto {
     const grid = getGrid(GridService.GRID_ROWS, GridService.GRID_COLUMNS);
-    const code = -1;
+    const code = getCode(grid, new Date());
 
     const gridDto: GridDto = {
       grid,
