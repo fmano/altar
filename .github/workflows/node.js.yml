@@ -10,6 +10,19 @@ on:
     branches: [ "main" ]
 
 jobs:
+  install:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: Install dependencies
+    - run: |
+          cd frontend/altar-spa
+          npm i
+    - run: |
+          cd backend/altar-app
+          npm i
+          
   build:
 
     runs-on: ubuntu-latest
