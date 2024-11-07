@@ -36,6 +36,7 @@ export function getGrid(rows: number, columns: number): string[][] {
  * 4. if the count is greater than 9, divide by the smallest integer possible so that
  *    the value is lower or equal to 9
  * 5. return the result
+ *
  * @param grid the grid on which the algorithm will be applied
  * @param time the time from which to extract the seconds component
  * @returns a two digit number
@@ -73,7 +74,7 @@ function countOcurrencesInGrid(grid: string[][], char: string): number {
       }
     }
   }
-  // TODO unit tests
+
   return count;
 }
 
@@ -83,8 +84,8 @@ function countOcurrencesInGrid(grid: string[][], char: string): number {
  * @param limit the number to be less than or equal to
  */
 function divideUntilLessOrEqualTo(numberToDivide: number, limit: number) {
-  for (let i = 1; i < numberToDivide; i++) {
-    if (numberToDivide / i < 9) {
+  for (let i = 1; i <= numberToDivide; i++) {
+    if (numberToDivide / i < limit) {
       return Math.round(numberToDivide / i);
     }
   }

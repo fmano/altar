@@ -1,4 +1,4 @@
-import { getRandomAlphabetCharacter, getGrid } from './utils';
+import { getRandomAlphabetCharacter, getGrid, getCode } from './utils';
 
 describe('utils', () => {
   describe('getRandomAlphabetCharacter', () => {
@@ -41,6 +41,39 @@ describe('utils', () => {
           expect(testGrid[i][j]).toMatch(/^[a-z]/); // match with a single char inside a-z
         }
       }
+    });
+  });
+
+  describe('getCode', () => {
+    const grid = [
+      ['a', 'a', 'b'],
+      ['c', 'd', 'd'],
+      ['d', 'e', 'f'],
+    ];
+
+    it('should return a number', () => {
+      const date = new Date();
+      jest.spyOn(date, 'getSeconds').mockReturnValueOnce(1);
+
+      const code = getCode(grid, date);
+
+      expect(typeof code).toBe('number');
+    });
+
+    it('should return valid codes', () => {
+      const date = new Date();
+      jest
+        .spyOn(date, 'getSeconds')
+        .mockReturnValueOnce(1) // should pick positions [0, 1] and [1, 0]
+        .mockReturnValueOnce(21); // should pick positions [2, 1] and [1, 2]
+
+      // first call should pick 'a' and 'c' with 2 and 1 ocurrences respectively
+      const code1 = getCode(grid, date);
+      // second call should pick 'e' and 'd' with 1 and 3 ocurrences respectively
+      const code2 = getCode(grid, date);
+
+      expect(code1).toBe(21);
+      expect(code2).toBe(13);
     });
   });
 });
