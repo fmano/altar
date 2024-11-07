@@ -1,4 +1,4 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, Query } from '@nestjs/common';
 import { GridService } from './grid.service';
 import { GridDto } from './models/grid.model';
 
@@ -7,7 +7,7 @@ export class GridController {
   constructor(private readonly gridService: GridService) {}
 
   @Get()
-  getGrid(): GridDto {
-    return this.gridService.getGrid();
+  getGridAndCode(@Query('bias') bias?: string): GridDto {
+    return this.gridService.getGridAndCode(bias);
   }
 }

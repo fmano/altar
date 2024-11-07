@@ -1,4 +1,4 @@
-import { getRandomAlphabetCharacter, getGrid, getCode } from './utils';
+import { getRandomAlphabetCharacter, createGrid, getCode } from './utils';
 
 describe('utils', () => {
   describe('getRandomAlphabetCharacter', () => {
@@ -23,24 +23,38 @@ describe('utils', () => {
     });
   });
 
-  describe('getGrid', () => {
+  describe('createGrid', () => {
     const rows = 10;
     const columns = 10;
 
     it('should return a grid with correct dimensions', () => {
-      const testGrid = getGrid(rows, columns);
+      const testGrid = createGrid(rows, columns);
       expect(testGrid.length).toBe(rows);
       expect(testGrid[0].length).toBe(columns);
     });
 
     it('should have an alphabet character on every position', () => {
-      const testGrid = getGrid(rows, columns);
+      const testGrid = createGrid(rows, columns);
 
       for (let i = 0; i < testGrid.length; i++) {
         for (let j = 0; j < testGrid[0].length; j++) {
           expect(testGrid[i][j]).toMatch(/^[a-z]/); // match with a single char inside a-z
         }
       }
+    });
+
+    it('should have more than 20% of a specific character when invoked with bias', () => {
+      const testGrid = createGrid(rows, columns, 'x');
+      const totalCharacters = rows * columns;
+      const biasCharacterCount = testGrid
+        .flat()
+        .filter((element) => element === 'x').length;
+
+      const biasPercentage = (biasCharacterCount * 100) / totalCharacters;
+      console.log(
+        `total ${totalCharacters} biasCount ${biasCharacterCount} biasPercent ${biasPercentage}`,
+      );
+      expect(biasPercentage).toBeGreaterThanOrEqual(20);
     });
   });
 

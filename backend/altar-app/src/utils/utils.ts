@@ -1,6 +1,8 @@
 const ALPHABET_SIZE = 26;
 const INITIAL_CHAR_CODE = 97; // code for lowercase 'a'
 
+const BIAS_AMOUNT = 0.2; // percentage of positions to be filled with a specified character
+
 /**
  * Generates and returns a single random character from [a-z]
  * @returns a random character from [a-z]
@@ -16,12 +18,39 @@ export function getRandomAlphabetCharacter(): string {
  * Generates and returns a grid with the specified number of rows and columns
  * @param rows number of grid rows
  * @param columns number of grid columns
+ * @param bias optional parameter specifying a character to occupy 20% of the grid's positions
  * @returns a grid filled with a single random character in each position
  */
-export function getGrid(rows: number, columns: number): string[][] {
+export function createGrid(
+  rows: number,
+  columns: number,
+  bias?: string,
+): string[][] {
   const grid: string[][] = Array.from({ length: rows }, (_, row) =>
     Array.from({ length: columns }, (_, col) => getRandomAlphabetCharacter()),
   );
+
+  if (bias) {
+    const numberOfPositionsToFill = rows * columns * BIAS_AMOUNT;
+    const randomPositions = new Set<number>();
+
+    while (randomPositions.size < numberOfPositionsToFill) {
+      // pick a random position from the entire grid
+      randomPositions.add(Math.floor(Math.random() * rows * columns));
+    }
+
+    // split each position from [0 - gridSize] to [0 - row][0 - column]
+    const indices = Array.from(randomPositions).map((index) => {
+      const biasRow = Math.floor(index / columns);
+      const biasColumn = index % columns;
+      return [biasRow, biasColumn];
+    });
+
+    // set the bias character on every position calculated above
+    for (const index of indices) {
+      grid[index[0]][index[1]] = bias;
+    }
+  }
 
   return grid;
 }
