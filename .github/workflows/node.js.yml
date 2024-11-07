@@ -15,33 +15,54 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+      
+      # Install dependencies for the frontend
       - name: Install frontend dependencies
-        run: |
-          cd frontend/altar-spa
-          npm i
+        working-directory: frontend/altar-spa
+        run: npm install
+      
+      # Install dependencies for the backend
       - name: Install backend dependencies
-        run: |
-          cd backend/altar-app
-          npm i
-          
+        working-directory: backend/altar-app
+        run: npm install
+
   build:
-
     runs-on: ubuntu-latest
-
-    strategy:
-      matrix:
-        node-version: [18.x, 20.x, 22.x]
-        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+    needs: install
 
     steps:
-    - uses: actions/checkout@v4
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v4
-      with:
-        node-version: ${{ matrix.node-version }}
-        cache: 'npm'
-    - name: Install Angular CLI
-      run: npm install -g @angular/cli
-    - run: npm ci
-    - run: npm run build --if-present
-    - run: npm test
+      - uses: actions/checkout@v4
+
+      - name: Install Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16' # Adjust as needed
+
+      - name: Install Angular CLI globally
+        run: npm install -g @angular/cli
+
+      # Build the frontend using Angular CLI
+      - name: Build Frontend
+        working-directory: frontend/altar-spa
+        run: npm run build
+
+      # Build the backend
+      - name: Build Backend
+        working-directory: backend/altar-app
+        run: npm run build
+
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+      
+      # Run frontend tests
+      - name: Install frontend dependencies
+        working-directory: frontend/altar-spa
+        run: npm test
+      
+      # Run backend tests
+      - name: Install backend dependencies
+        working-directory: backend/altar-app
+        run: npm test
