@@ -14,12 +14,13 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v4
-    - name: Install dependencies
-    - run: |
+      - uses: actions/checkout@v4
+      - name: Install frontend dependencies
+        run: |
           cd frontend/altar-spa
           npm i
-    - run: |
+      - name: Install backend dependencies
+        run: |
           cd backend/altar-app
           npm i
           
