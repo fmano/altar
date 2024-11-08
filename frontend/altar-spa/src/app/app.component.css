@@ -1,0 +1,11 @@
+.main-body {
+    width: 70vw;
+    max-width: 1200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+app-grid {
+    width: 100%;
+}

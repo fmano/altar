@@ -1,0 +1,11 @@
+<button (click)="startGridGeneration()">GENERATE 2D GRID</button>
+<table>
+  @for (row of grid; track $index) {
+  <tr>
+    @for (gridEntry of row; track $index) {
+    <td>{{ gridEntry }}</td>
+    }
+  </tr>
+  }
+</table>
+<span>YOUR CODE: {{ code }}</span>
