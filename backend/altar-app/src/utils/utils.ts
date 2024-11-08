@@ -94,8 +94,7 @@ export function getCode(grid: string[][], time: Date): number {
  * @returns the number of ocurrences of the specified char
  */
 function countOcurrencesInGrid(grid: string[][], char: string): number {
-  const count = grid.flat().filter((element) => element === char).length;
-  return count;
+  return grid.flat().filter((element) => element === char).length;
 }
 
 /**

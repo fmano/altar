@@ -1,6 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { GridService } from './grid.service';
-import { GridDto } from './models/grid.model';
+import { GridDto } from './models/grid-dto.model';
 
 describe('GridService', () => {
   let service: GridService;

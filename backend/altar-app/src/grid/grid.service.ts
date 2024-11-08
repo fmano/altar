@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { GridDto } from './models/grid.model';
+import { GridDto } from './models/grid-dto.model';
 import { getCode, createGrid } from '../utils/utils';
 
 @Injectable()

@@ -1,6 +1,6 @@
 import { Controller, Get, Query } from '@nestjs/common';
 import { GridService } from './grid.service';
-import { GridDto } from './models/grid.model';
+import { GridDto } from './models/grid-dto.model';
 
 @Controller('grid')
 export class GridController {
